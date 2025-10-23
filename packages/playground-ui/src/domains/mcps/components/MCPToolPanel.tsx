@@ -8,12 +8,12 @@ import { Txt } from '@/ds/components/Txt';
 import ToolExecutor from '@/domains/tools/components/ToolExecutor';
 import { useMCPServerTool } from '@/domains/mcps/hooks/use-mcp-server-tool';
 
-export interface ToolPanelProps {
+export interface MCPToolPanelProps {
   toolId: string;
   serverId: string;
 }
 
-export const MCPToolPanel = ({ toolId, serverId }: ToolPanelProps) => {
+export const MCPToolPanel = ({ toolId, serverId }: MCPToolPanelProps) => {
   const { data: tool, isLoading } = useMCPServerTool(serverId, toolId);
 
   const { mutateAsync: executeTool, isPending: isExecuting, data: result } = useExecuteTool();

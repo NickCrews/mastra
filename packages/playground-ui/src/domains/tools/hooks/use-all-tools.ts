@@ -1,4 +1,5 @@
-import { usePlaygroundStore, useQuery } from '@mastra/playground-ui';
+import { usePlaygroundStore } from '@/store/playground-store';
+import { useQuery } from '@tanstack/react-query';
 import { useMastraClient } from '@mastra/react';
 
 export const useTools = () => {
