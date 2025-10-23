@@ -1,10 +1,10 @@
 import { resolveSerializedZodOutput } from '@/components/dynamic-form/utils';
-import jsonSchemaToZod from 'json-schema-to-zod';
-import { parse } from 'superjson';
+import jsonSchemaToZod, { JsonSchema } from 'json-schema-to-zod';
 import { z } from 'zod';
 import { Txt } from '@/ds/components/Txt';
 import ToolExecutor from '@/domains/tools/components/ToolExecutor';
 import { useExecuteMCPTool, useMCPServerTool } from '@/domains/mcps/hooks/use-mcp-server-tool';
+import { toast } from 'sonner';
 
 export interface MCPToolPanelProps {
   toolId: string;
@@ -31,11 +31,14 @@ export const MCPToolPanel = ({ toolId, serverId }: MCPToolPanelProps) => {
       </div>
     );
 
-  console.log('loool', tool);
-
-  const zodInputSchema = tool.inputSchema
-    ? resolveSerializedZodOutput(jsonSchemaToZod(parse(tool.inputSchema)))
-    : z.object({});
+  let zodInputSchema;
+  try {
+    zodInputSchema = resolveSerializedZodOutput(jsonSchemaToZod(tool.inputSchema as unknown as JsonSchema));
+  } catch (e) {
+    console.error('Error processing input schema:', e);
+    toast.error('Failed to process tool input schema.');
+    zodInputSchema = z.object({});
+  }
 
   return (
     <ToolExecutor
