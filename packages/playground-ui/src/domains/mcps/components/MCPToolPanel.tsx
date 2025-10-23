@@ -1,12 +1,10 @@
-import { usePlaygroundStore } from '@/store/playground-store';
-import { useExecuteTool } from '@/domains/tools/hooks/use-execute-tool';
 import { resolveSerializedZodOutput } from '@/components/dynamic-form/utils';
 import jsonSchemaToZod from 'json-schema-to-zod';
 import { parse } from 'superjson';
 import { z } from 'zod';
 import { Txt } from '@/ds/components/Txt';
 import ToolExecutor from '@/domains/tools/components/ToolExecutor';
-import { useMCPServerTool } from '@/domains/mcps/hooks/use-mcp-server-tool';
+import { useExecuteMCPTool, useMCPServerTool } from '@/domains/mcps/hooks/use-mcp-server-tool';
 
 export interface MCPToolPanelProps {
   toolId: string;
@@ -15,18 +13,12 @@ export interface MCPToolPanelProps {
 
 export const MCPToolPanel = ({ toolId, serverId }: MCPToolPanelProps) => {
   const { data: tool, isLoading } = useMCPServerTool(serverId, toolId);
-
-  const { mutateAsync: executeTool, isPending: isExecuting, data: result } = useExecuteTool();
-  const { runtimeContext: playgroundRuntimeContext } = usePlaygroundStore();
+  const { mutateAsync: executeTool, isPending: isExecuting, data: result } = useExecuteMCPTool(serverId, toolId);
 
   const handleExecuteTool = async (data: any) => {
     if (!tool) return;
 
-    return executeTool({
-      toolId: tool.id,
-      input: data,
-      runtimeContext: playgroundRuntimeContext,
-    });
+    return await executeTool(data);
   };
 
   if (isLoading) return null;
