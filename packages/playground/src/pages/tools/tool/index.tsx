@@ -6,8 +6,7 @@ import { z } from 'zod';
 
 import { resolveSerializedZodOutput } from '@/components/dynamic-form/utils';
 
-import { useTool } from '@/hooks/use-all-tools';
-import { useExecuteTool } from '@mastra/playground-ui';
+import { useExecuteTool, useTool } from '@mastra/playground-ui';
 
 import ToolExecutor from '../tool-executor';
 import {
@@ -25,7 +24,7 @@ import {
 
 const Tool = () => {
   const { toolId } = useParams();
-  const { tool, isLoading } = useTool(toolId!);
+  const { data: tool, isLoading } = useTool(toolId!);
 
   const { mutateAsync: executeTool, isPending: isExecuting, data: result } = useExecuteTool();
   const { runtimeContext: playgroundRuntimeContext } = usePlaygroundStore();
