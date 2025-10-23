@@ -1,7 +1,6 @@
 import { CodeMirrorBlock } from '@/components/ui/code-mirror-block';
 import { CopyButton } from '@/components/ui/copy-button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useMCPServers } from '@/hooks/use-mcp-servers';
 
 import { McpToolInfo } from '@mastra/client-js';
 import { ServerInfo } from '@mastra/core/mcp';
@@ -30,6 +29,7 @@ import {
   DocsIcon,
   useMCPServerTools,
   ToolIconMap,
+  useMCPServers,
 } from '@mastra/playground-ui';
 import { useRef } from 'react';
 import { Link, useParams } from 'react-router';
@@ -43,9 +43,9 @@ declare global {
 
 export const McpServerPage = () => {
   const { serverId } = useParams();
-  const { servers: mcpServers, isLoading } = useMCPServers();
+  const { data: mcpServers = [], isLoading } = useMCPServers();
 
-  const server = mcpServers?.find(server => server.id === serverId);
+  const server = mcpServers.find(server => server.id === serverId);
 
   const host = window.MASTRA_SERVER_HOST;
   const port = window.MASTRA_SERVER_PORT;
