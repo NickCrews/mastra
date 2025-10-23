@@ -1,7 +1,5 @@
 import { Link, useParams } from 'react-router';
 
-import { ToolPanel } from '@mastra/playground-ui';
-
 import {
   Header,
   Crumb,
@@ -12,6 +10,7 @@ import {
   HeaderAction,
   Button,
   DocsIcon,
+  AgentToolPanel,
 } from '@mastra/playground-ui';
 
 const AgentTool = () => {
@@ -45,7 +44,7 @@ const AgentTool = () => {
         </HeaderAction>
       </Header>
 
-      <ToolPanel toolId={toolId!} />
+      <AgentToolPanel toolId={toolId!} agentId={agentId!} />
     </MainContentLayout>
   );
 };
