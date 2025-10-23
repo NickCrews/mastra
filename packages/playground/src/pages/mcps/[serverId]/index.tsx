@@ -2,7 +2,6 @@ import { CodeMirrorBlock } from '@/components/ui/code-mirror-block';
 import { CopyButton } from '@/components/ui/copy-button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useMCPServers } from '@/hooks/use-mcp-servers';
-import { ToolIconMap } from '@/types';
 
 import { McpToolInfo } from '@mastra/client-js';
 import { ServerInfo } from '@mastra/core/mcp';
@@ -30,6 +29,7 @@ import {
   Button,
   DocsIcon,
   useMCPServerTools,
+  ToolIconMap,
 } from '@mastra/playground-ui';
 import { useRef } from 'react';
 import { Link, useParams } from 'react-router';
